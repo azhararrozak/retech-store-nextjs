@@ -21,6 +21,15 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
+CREATE TABLE "Session" (
+    "id" TEXT NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Session_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Brand" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
@@ -116,6 +125,9 @@ CREATE UNIQUE INDEX "Order_code_key" ON "Order"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "OrderDetail_order_id_key" ON "OrderDetail"("order_id");
+
+-- AddForeignKey
+ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Product" ADD CONSTRAINT "Product_brand_id_fkey" FOREIGN KEY ("brand_id") REFERENCES "Brand"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
